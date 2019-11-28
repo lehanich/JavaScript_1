@@ -141,4 +141,14 @@ function lesson03(){
         }
         easy ? console.log("Простое число  " + i) : easy = true
     }
+
+    //4
+    for(i=0;i<=9;console.log(i++)){}
+
+    //5
+    let string = "";
+    for(i=0;i<20;i++){
+        string += "x"
+        console.log(string)
+    }
 }
