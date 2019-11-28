@@ -53,7 +53,7 @@ function lesson02(){
     console.log(mathOps(ch1, ch2, op))
 
     //7
-    let сh11 = +prompt("Введите число")
+    let сh11 = +prompt("Введите число для возведения в степень")
     let сh22 = +prompt("Введите степень")
     console.log(power(сh11, сh22))
 }
@@ -115,9 +115,12 @@ function mathOps(arg1, arg2, op){
 }
 
 function power(val, pow){
-    if(pow > 0){
-        result == 0 || result == null ? result = val : result *= val
-        power(val, pow-1)
-    }
-    return "result: " + result
+    return pow == 0 || !pow ? 1 : pow > 1 ? val * power(val, pow - 1) : val
+    // if(pow > 0){
+    //     result == 0 || result == null ? result = val : result *= val
+    //     power(val, pow-1)
+    // }else{
+    //     result = 1
+    // }
+    // return "result: " + result
 }
