@@ -151,4 +151,56 @@ function lesson03(){
         string += "x"
         console.log(string)
     }
+
+    game_1()
+}
+
+function game_1(){
+    let finish = false
+    let variants = ["Камень", "Ножницы", "Бумага"]
+
+    while(!finish){
+        let robotVarian = randomize()
+        let variant = +prompt("0-камень, 1-ножницы, 2-бумага, 3-выход")
+        if(variants[variant] !== undefined && variant != null){
+            findOut(robotVarian, variant, variants)
+        }else{
+            console.log("Exit")
+            finish = true
+        }
+    }
+    recGame()
+
+}
+
+function findOut(robotVarian, variant, variants){
+    //0 - камень
+    //1 - ножницы
+    //2 - бумага
+    console.log(`Робот ${variants[robotVarian]}, Игрок ${variants[variant]}`)
+    if(robotVarian == 0 && variant==0 || robotVarian == 1 && variant==1 || robotVarian == 2 && variant==2){
+        console.log("Ничья")
+    }else if(robotVarian == 0 && variant==1 || robotVarian == 1 && variant==2 || robotVarian == 2 && variant==0){
+        console.log("Игрок проиграл!")
+    }else if(robotVarian == 0 && variant==2 || robotVarian == 1 && variant==0 || robotVarian == 2 && variant==1){
+        console.log("Игрок выиграл!")
+    }
+}
+
+function randomize(){
+    return Math.floor (Math.random() * 3)
+}
+
+function recGame(){
+    let robotVarian = randomize()
+    let variant = +prompt("0-камень, 1-ножницы, 2-бумага, 3-выход")
+        if(variants[variant] !== undefined && variant != null){
+            findOut(robotVarian, variant, variants)
+            recGame()
+        }else{
+            console.log("Exit")
+            return true
+        }
+    console.log("Exit")
+    return true
 }
