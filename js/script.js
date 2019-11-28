@@ -3,7 +3,8 @@ let result ;
 main()
 
 function main(){
-    lesson02()
+    //lesson02()
+    lesson03()
 }
 
 function lesson01(){
@@ -123,4 +124,22 @@ function power(val, pow){
     //     result = 1
     // }
     // return "result: " + result
+}
+
+function lesson03(){
+    //1
+    let i = 0
+    let easy = true //число простое
+    let check = [2,3,4,5,6,7,8,9]
+
+    for(i=0;i<=100;i++){
+        j = 0
+        while(easy && j < check.length){
+            if(i % check[j] === 0 && i != check[j]){
+                easy = false
+            }
+            j++
+        }
+        easy ? console.log("Простое число  " + i) : easy = true
+    }
 }
