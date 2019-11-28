@@ -128,7 +128,6 @@ function power(val, pow){
 
 function lesson03(){
     //1
-    let i = 0
     let easy = true //число простое
     let check = [2,3,4,5,6,7,8,9]
 
