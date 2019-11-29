@@ -1,4 +1,5 @@
 let result ;
+let variants2 = ["Камень", "Ножницы", "Бумага"]
 
 main()
 
@@ -126,6 +127,7 @@ function power(val, pow){
     // return "result: " + result
 }
 
+//Урок 3
 function lesson03(){
     //1
     let easy = true //число простое
@@ -153,8 +155,11 @@ function lesson03(){
     }
 
     game_1()
+
+    recGame()
 }
 
+//Камень ножницы бумага через цикл While
 function game_1(){
     let finish = false
     let variants = ["Камень", "Ножницы", "Бумага"]
@@ -169,10 +174,10 @@ function game_1(){
             finish = true
         }
     }
-    recGame()
 
 }
 
+//Сравниваем вводы
 function findOut(robotVarian, variant, variants){
     //0 - камень
     //1 - ножницы
@@ -187,19 +192,18 @@ function findOut(robotVarian, variant, variants){
     }
 }
 
+//Генерируется случайное число 0 1 2
 function randomize(){
     return Math.floor (Math.random() * 3)
 }
 
+//Камень ножницы бумага через рекурсивную функцию
 function recGame(){
     let robotVarian = randomize()
     let variant = +prompt("0-камень, 1-ножницы, 2-бумага, 3-выход")
-        if(variants[variant] !== undefined && variant != null){
-            findOut(robotVarian, variant, variants)
+        if(variants2[variant] !== undefined && variant != null){
+            findOut(robotVarian, variant, variants2)
             recGame()
-        }else{
-            console.log("Exit")
-            return true
         }
     console.log("Exit")
     return true
