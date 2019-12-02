@@ -5,7 +5,8 @@ main()
 
 function main(){
     //lesson02()
-    lesson03()
+    //lesson03()
+    lesson04()
 }
 
 function lesson01(){
@@ -207,4 +208,24 @@ function recGame(){
         }
     console.log("Exit")
     return true
+}
+
+//Lesson04
+function lesson04(){
+    let chislo = +prompt("Введите число от 0 до 999")
+    console.log(numberToObject(chislo))
+}
+
+function numberToObject(chislo){
+    console.log(`Проверка числа ${chislo}`)
+    if(chislo >= 0 && chislo < 1000 ){
+        return {
+            "единицы": chislo % 10,
+            "десятки": Math.floor( (chislo % 100) / 10),
+            "сотни": Math.floor(chislo / 100),
+        }
+    }else{
+        console.log("Неправильное число")
+        return {}
+    }
 }
