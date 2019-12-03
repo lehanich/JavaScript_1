@@ -1,9 +1,11 @@
 let result ;
+let variants2 = ["Камень", "Ножницы", "Бумага"]
 
 main()
 
 function main(){
-    lesson02()
+    //lesson02()
+    lesson03()
 }
 
 function lesson01(){
@@ -123,4 +125,86 @@ function power(val, pow){
     //     result = 1
     // }
     // return "result: " + result
+}
+
+//Урок 3
+function lesson03(){
+    //1
+    let easy = true //число простое
+    let check = [2,3,4,5,6,7,8,9]
+
+    for(i=0;i<=100;i++){
+        j = 0
+        while(easy && j < check.length){
+            if(i % check[j] === 0 && i != check[j]){
+                easy = false
+            }
+            j++
+        }
+        easy ? console.log("Простое число  " + i) : easy = true
+    }
+
+    //4
+    for(i=0;i<=9;console.log(i++)){}
+
+    //5
+    let string = "";
+    for(i=0;i<20;i++){
+        string += "x"
+        console.log(string)
+    }
+
+    game_1()
+
+    recGame()
+}
+
+//Камень ножницы бумага через цикл While
+function game_1(){
+    let finish = false
+    let variants = ["Камень", "Ножницы", "Бумага"]
+
+    while(!finish){
+        let robotVarian = randomize()
+        let variant = +prompt("0-камень, 1-ножницы, 2-бумага, 3-выход")
+        if(variants[variant] !== undefined && variant != null){
+            findOut(robotVarian, variant, variants)
+        }else{
+            console.log("Exit")
+            finish = true
+        }
+    }
+
+}
+
+//Сравниваем вводы
+function findOut(robotVarian, variant, variants){
+    //0 - камень
+    //1 - ножницы
+    //2 - бумага
+    console.log(`Робот ${variants[robotVarian]}, Игрок ${variants[variant]}`)
+    if(robotVarian == 0 && variant==0 || robotVarian == 1 && variant==1 || robotVarian == 2 && variant==2){
+        console.log("Ничья")
+    }else if(robotVarian == 0 && variant==1 || robotVarian == 1 && variant==2 || robotVarian == 2 && variant==0){
+        console.log("Игрок проиграл!")
+    }else if(robotVarian == 0 && variant==2 || robotVarian == 1 && variant==0 || robotVarian == 2 && variant==1){
+        console.log("Игрок выиграл!")
+    }
+}
+
+//Генерируется случайное число 0 1 2
+function randomize(){
+    return Math.floor (Math.random() * 3)
+}
+
+//Камень ножницы бумага через рекурсивную функцию
+function recGame(){
+    let robotVarian = randomize()
+    let variant = +prompt("0-камень, 1-ножницы, 2-бумага, 3-выход")
+        if(variants2[variant] !== undefined && variant != null){
+            findOut(robotVarian, variant, variants2)
+            recGame()
+        }
+    console.log("Exit")
+    return true
 }
