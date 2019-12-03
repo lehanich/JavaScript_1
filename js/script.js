@@ -229,3 +229,15 @@ function numberToObject(chislo){
         return {}
     }
 }
+
+        //Пример конструктора
+        // let people = []
+
+        // function createHuman (namePar) { // КОНСТРУКТОР
+        //     return {
+        //         name: namePar,
+        //         goWork (hrs = 8) {
+        //             console.log (`${this.name} goes work for ${hrs} hours`)
+        //         }
+        //     }
+        // }
