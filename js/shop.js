@@ -11,7 +11,7 @@
         let cart = {
             items: [],
             add(pID) {
-                let find = products.find (el => el.product_id === pID)
+                //Если товар есть в корзине, увеличиваем quantity
                 let addedToCart = false
                 this.items.forEach((el,product_id)=>{          
                     if(el.product_id === pID && !addedToCart){
@@ -19,7 +19,9 @@
                         addedToCart = true
                     }
                 })
+                //Если товара нет - добавляем объект
                 if(this.items.length == 0 || !addedToCart){
+                    let find = products.find (el => el.product_id === pID)
                     this.items.push (Object.assign ({}, find, {quantity: 1}))
                 }
             },
