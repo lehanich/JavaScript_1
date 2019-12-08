@@ -264,3 +264,52 @@ h3{
     background-color: #fff;
     padding: 0 5px;
 }
+
+.cart-form{
+    position: relative;
+}
+.cart-block{
+    /*display: none;*/
+    position: absolute;
+    width: 200px;
+    height:300px;
+    background-color: #dddcdc;
+    right: -62px;
+    top: 39px;
+    border-radius: 11px;
+
+}
+
+.cart-block::before {
+    top: 21px;
+    right:91px;
+    border: solid transparent;
+    border-top-color: transparent;
+    border-top-width: medium;
+    border-right-color: transparent;
+    border-right-width: medium;
+    border-bottom-color: transparent;
+    border-bottom-width: medium;
+    border-left-color: transparent;
+    border-left-width: medium;
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    
+    border-color: rgba(8, 12, 9, 0);
+    border-bottom-color: #dddcdc;
+    border-width: 15px;
+    background-color: #dddcdc;
+    z-index: 7;
+    margin: -31px;
+    border-color:    rgba(8, 12, 9, 0);
+    border-bottom-color: rgba(8, 12, 9, 0);
+    border-bottom-color:
+    #dddcdc;
+    border-width: 10px 15px 10px 15px;
+
+    border-bottom-color:#dddcdc;
+    border-top: 0;
+    background-color:transparent;
+}
