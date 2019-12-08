@@ -300,16 +300,13 @@ h3{
     border-color: rgba(8, 12, 9, 0);
     border-bottom-color: #dddcdc;
     border-width: 15px;
-    background-color: #dddcdc;
+    background-color: transparent;
     z-index: 7;
     margin: -31px;
     border-color:    rgba(8, 12, 9, 0);
     border-bottom-color: rgba(8, 12, 9, 0);
-    border-bottom-color:
-    #dddcdc;
-    border-width: 10px 15px 10px 15px;
-
     border-bottom-color:#dddcdc;
+    border-width: 10px 15px 10px 15px;
     border-top: 0;
-    background-color:transparent;
+
 }
