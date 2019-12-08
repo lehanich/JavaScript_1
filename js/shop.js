@@ -1,11 +1,56 @@
         //ИМИТАЦИЯ РАБОТЫ БАЗЫ ДАННЫХ И СЕРВЕРА
 
-        let PRODUCTS_NAMES = ['Processor', 'Display', 'Notebook', 'Mouse', 'Keyboard']
-        let PRICES = [100, 120, 1000, 15, 18]
+        let PRODUCTS_NAMES = ['Бумага', 'Скрепки', 'Краски', 'Ручка', 'Ластик']
+        let PRICES = [100, 30, 550, 55, 44]
         let IDS = [0, 1, 2, 3, 4]
 
-        let products = [] //массив объектов
+        let products = []
         
+        let catalog = {
+            items: [],
+            container: '.products',
+            construct () {
+                this._init () //_ - это обозначение инкапсулированного метода
+            },
+            _init () {
+                this._handleData ()
+                this.render ()
+            },
+            _handleData () {
+                for (let i = 0; i < IDS.length; i++) {
+                    this.items.push (this._createNewProduct (i))
+                }
+            },
+            _createNewProduct (index) {
+                return {
+                    product_name: PRODUCTS_NAMES [index],
+                    price: PRICES [index],
+                    product_id: IDS [index]
+                }
+            },
+            render () {
+                let str = ''
+                this.items.forEach (item => {
+                    str += `
+                        <div class="Item">
+                            <div class="pImage">
+                                <img  src="https://placehold.it/300x200" alt="${item.product_name}">
+                            </div>
+                            <b>${item.product_name}</b>
+                            <i>${item.price}</i>
+                            <button class="btn-buy">Купить</button>
+                            <!--<div class="catalog-link">
+                                <a href="catalog/product1.html">Бумага</a>
+                            </div>-->
+                        </div>
+                    `
+                })
+                console.log(this.container)
+                console.log(document)
+                //document.querySelector(this.container).innerHTML = str
+                document.querySelector(this.container).innerHTML = str
+            }
+        }
         
 
         let cart = {
@@ -62,4 +107,8 @@
         cart.add(2)
         console.log(cart)
         console.log(cart.total())
+
+        window.onload = function() {
+            catalog.construct()
+        }
         ////
