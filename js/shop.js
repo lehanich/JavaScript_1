@@ -55,6 +55,7 @@
 
         let cart = {
             items: [],
+            container_fly: ".cart-block",
             add(pID) {
                 //Если товар есть в корзине, увеличиваем quantity
                 let addedToCart = false
@@ -66,7 +67,7 @@
                 })
                 //Если товара нет - добавляем объект
                 if(this.items.length == 0 || !addedToCart){
-                    let find = products.find (el => el.product_id === pID)
+                    let find = catalog.items.find (el => el.product_id === pID)
                     this.items.push (Object.assign ({}, find, {quantity: 1}))
                 }
             },
@@ -77,38 +78,59 @@
                     length += el.quantity        
                 })
                 return length
+            },
+            render(){
+                let str = ''
+                this.items.forEach (item => {
+                    str += `
+                        <div class="cart-item">
+                            <div class="cart-image">
+                                <img  src="https://placehold.it/50x50" alt="${item.product_name}">
+                            </div>
+                            <div class="cart-info">
+                                <b>${item.product_name}</b>
+                                <i>${item.price}</i>
+                                <i>${item.quantity}</i>
+                            </div>
+                            <button class="btn-del">Удалить</button>
+                            <!--<div class="catalog-link">
+                                <a href="catalog/product1.html">Бумага</a>
+                            </div>-->
+                        </div>
+                    `
+                })
+                //document.querySelector(this.container).innerHTML = str
+                document.querySelector(this.container_fly).innerHTML = str
             }
         }
 
-        function getData () {
-            for (let i = 0; i < IDS.length; i++) {
-                products.push (createNewProduct (i))
-            }
-        }
+        // function getData () {
+        //     for (let i = 0; i < IDS.length; i++) {
+        //         products.push (createNewProduct (i))
+        //     }
+        // }
 
-        function createNewProduct (index) {
-            return {
-                product_name: PRODUCTS_NAMES [index],
-                price: PRICES [index],
-                product_id: IDS [index]
-            }
-        }
-
-        function addProduct (id) {
-            let find = products.find (el => el.product_id === id)
-            cart.items.push (Object.assign ({}, find, {quantity: 1}))
-        }
+        // function createNewProduct (index) {
+        //     return {
+        //         product_name: PRODUCTS_NAMES [index],
+        //         price: PRICES [index],
+        //         product_id: IDS [index]
+        //     }
+        // }
 
         //// Actions ////
-        getData ()
+        //getData ()
 
-        cart.add(0)
-        cart.add(2)
-        cart.add(2)
-        console.log(cart)
-        console.log(cart.total())
 
         window.onload = function() {
             catalog.construct()
+
+            cart.add(0)
+            cart.add(2)
+            cart.add(2)
+            console.log(cart)
+            console.log(cart.total())
+
+            cart.render()
         }
         ////
