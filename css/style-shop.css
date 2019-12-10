@@ -53,7 +53,6 @@ h3{
     color: #000;
     font-size: 18px;
     font-weight: 400;
-    background-color: #eaeaea;
 }
 
 .logo {
@@ -147,11 +146,21 @@ h3{
     font-weight: bold;
  
 }
+.content{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
 .products{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     flex-flow: row wrap;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 .product .pImage{
     float: left;
@@ -249,6 +258,9 @@ h3{
 }
 .product-item .button-block button:hover{
     background-color: #ff5023;
+}
+.product-item .button-block button:active{
+    background-color: #ff2323;
 }
 .catalog-link a{
     color: #40bda6;
