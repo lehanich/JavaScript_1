@@ -174,5 +174,10 @@
                 classArray.indexOf("show") >=0 ?
                   document.querySelector(cart.container_fly).classList.remove("show") :
                     document.querySelector(cart.container_fly).classList.add("show")
+
+                classArray = [...document.querySelector(".cart-form .total-price").classList]
+                classArray.indexOf("hide") >=0 ?
+                  document.querySelector(".cart-form .total-price").classList.remove("hide") :
+                    document.querySelector(".cart-form .total-price").classList.add("hide")
             }
         }
