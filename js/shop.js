@@ -139,6 +139,9 @@
             catalog.construct()
 
             this.document.getElementById("catalog").addEventListener("click", CalatogClick)
+            //this.document.getElementById("cart-form").addEventListener("mouseenter", showFlyCart) 
+            //this.document.getElementById("cart-form").addEventListener("mouseover", hideFlyCart)   
+            this.document.getElementById("cart-form").addEventListener("click", showFlyCartClick) 
 
             //cart.render()
         }
@@ -149,5 +152,25 @@
                 console.log(cart)
                 console.log(cart.total())
                 cart.render()
+            }
+        }
+        function showFlyCart(event){
+            console.dir(event.target);
+            if(event.target.tagName === "FORM" && event.target.className === "cart-form"){
+                document.querySelector(cart.container_fly).classList.add("show")
+            }
+        }
+        function hideFlyCart(event){
+            if(event.target.tagName === "FORM" && event.target.className === "cart-form"){
+                document.querySelector(cart.container_fly).classList.remove("show")
+            }
+        }
+        function showFlyCartClick(event){
+            if(event.target.tagName === "INPUT" && event.target.className === "cart-button"){
+                let classArray = [...document.querySelector(cart.container_fly).classList]
+                //console.dir(document.querySelector(cart.container_fly).classList);
+                classArray.indexOf("show") >=0 ?
+                  document.querySelector(cart.container_fly).classList.remove("show") :
+                    document.querySelector(cart.container_fly).classList.add("show")
             }
         }

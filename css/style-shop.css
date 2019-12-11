@@ -23,6 +23,12 @@ div {
     /*display: block;
     float: left;*/
 }
+.show{
+    display:block!important;
+}
+.hide{
+    display:none!important;
+}
 .menu{
     display: inline-block;
     float: right;
@@ -333,7 +339,7 @@ h3{
     position: relative;
 }
 .cart-block{
-    /*display: none;*/
+    display: none;
     position: absolute;
     width: 200px;
     height:auto;
