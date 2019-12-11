@@ -339,6 +339,12 @@ h3{
 .cart-form{
     position: relative;
 }
+.cart-form .total-price{
+    display: block;
+    text-align: center;
+    color: #40bda6;
+    position: absolute;
+}
 .cart-block{
     display: none;
     position: absolute;

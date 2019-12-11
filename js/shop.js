@@ -96,8 +96,8 @@
                             </div>
                             <div class="cart-info">
                                 <b>${item.product_name}</b>
-                                <i>${item.price}</i>
-                                <i>${item.quantity}</i>
+                                <i>${item.price}</i> x 
+                                <i>${item.quantity}</i>шт
                             </div>
                             <button class="btn-del" data-product="${item.product_id}">Удалить</button>
                             <!--<div class="catalog-link">
@@ -114,6 +114,7 @@
                 `
                 //document.querySelector(this.container).innerHTML = str
                 document.querySelector(this.container_fly).innerHTML = str
+                document.querySelector(".cart-form .total-price").innerHTML = this.totalPrice()
             }
         }
 
@@ -152,6 +153,7 @@
                 console.log(cart)
                 console.log(cart.total())
                 cart.render()
+                
             }
         }
         function showFlyCart(event){
