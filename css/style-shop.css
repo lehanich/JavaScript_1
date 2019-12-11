@@ -344,6 +344,8 @@ h3{
     text-align: center;
     color: #40bda6;
     position: absolute;
+    width: 50px;
+    right: -12px;
 }
 .cart-block{
     display: none;
