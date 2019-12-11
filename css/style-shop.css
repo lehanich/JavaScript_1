@@ -403,3 +403,7 @@ h3{
 .cart-info{
     margin: 0 5px;
 }
+.cart-info-name{
+    font-weight: bold;
+    display: block;
+}

@@ -95,11 +95,11 @@
                                 <img  src="https://placehold.it/50x50" alt="${item.product_name}">
                             </div>
                             <div class="cart-info">
-                                <b>${item.product_name}</b>
+                                <span class="cart-info-name">${item.product_name}</span>
                                 <i>${item.price}</i> x 
                                 <i>${item.quantity}</i>шт
                             </div>
-                            <button class="btn-del" data-product="${item.product_id}">Удалить</button>
+                            <input type="button" class="btn-del" data-product="${item.product_id}" value="Удалить">
                             <!--<div class="catalog-link">
                                 <a href="catalog/product1.html">Бумага</a>
                             </div>-->
@@ -115,6 +115,19 @@
                 //document.querySelector(this.container).innerHTML = str
                 document.querySelector(this.container_fly).innerHTML = str
                 document.querySelector(".cart-form .total-price").innerHTML = this.totalPrice()
+                
+            },
+            deleteProduct(id){
+                let index=0
+                let deleteEl = false
+                while(index < this.items.length && !deleteEl){
+                    if(this.items[index].product_id == id ){
+                        this.items.splice(index, 1);
+                        deleteEl = true
+                    }
+                    index++
+                }
+                this.render()
             }
         }
 
@@ -143,8 +156,9 @@
             //this.document.getElementById("cart-form").addEventListener("mouseenter", showFlyCart) 
             //this.document.getElementById("cart-form").addEventListener("mouseover", hideFlyCart)   
             this.document.getElementById("cart-form").addEventListener("click", showFlyCartClick) 
-
+            //this.document.querySelector(".cart-form .btn-del").addEventListener("click", deleteFromCart)
             //cart.render()
+            document.querySelector(".cart-block").addEventListener("click", deleteFromCart)
         }
         ////
         function CalatogClick(event){
@@ -179,5 +193,11 @@
                 classArray.indexOf("hide") >=0 ?
                   document.querySelector(".cart-form .total-price").classList.remove("hide") :
                     document.querySelector(".cart-form .total-price").classList.add("hide")
+            }
+        }
+        function deleteFromCart(event){
+            if(event.target.tagName === "INPUT" && event.target.className === "btn-del"){
+                console.log(event.target.dataset.product)
+                cart.deleteProduct(event.target.dataset.product)
             }
         }
