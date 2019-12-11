@@ -387,7 +387,7 @@ h3{
     border-top: 0;
 
 }
-.cart-block .total-price{
+.cart-block .total-price-fly{
     display: flex;
     justify-content: space-between;
 }

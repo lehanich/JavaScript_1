@@ -107,7 +107,7 @@
                     `
                 })
                 str += `
-                    <div class="total-price">
+                    <div class="total-price-fly">
                         <span>Итоговая сумма</span>
                         <span class="price">${this.totalPrice()}</span>
                     </div>
