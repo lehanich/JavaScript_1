@@ -167,6 +167,7 @@ h3{
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
+    border: 1px solid #d7d7d7;
 }
 .product .pImage{
     float: left;
