@@ -392,6 +392,7 @@ h3{
 .cart-block .total-price-fly{
     display: flex;
     justify-content: space-between;
+    color:#40bda6;
 }
 .cart-item{
     display: flex;
