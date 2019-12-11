@@ -32,13 +32,13 @@
                 let str = ''
                 this.items.forEach (item => {
                     str += `
-                        <div class="Item">
+                        <div class="product-item">
                             <div class="pImage">
-                                <img  src="https://placehold.it/300x200" alt="${item.product_name}">
+                                <img  src="https://placehold.it/200x200" alt="${item.product_name}">
                             </div>
-                            <b>${item.product_name}</b>
-                            <i>${item.price}</i>
-                            <button class="btn-buy">Купить</button>
+                            <h5>${item.product_name}</h5>
+                            <span class="price">${item.price}</span>
+                            <div class="button-block"><button class="btn-buy" data-product="${item.product_id}">Купить</button></div>
                             <!--<div class="catalog-link">
                                 <a href="catalog/product1.html">Бумага</a>
                             </div>-->
@@ -79,6 +79,13 @@
                 })
                 return length
             },
+            totalPrice(){ 
+                let totalPrice = 0
+                this.items.forEach((el,product_id)=>{  
+                    totalPrice += el.quantity * el.price       
+                })
+                return totalPrice
+            },
             render(){
                 let str = ''
                 this.items.forEach (item => {
@@ -92,13 +99,19 @@
                                 <i>${item.price}</i>
                                 <i>${item.quantity}</i>
                             </div>
-                            <button class="btn-del">Удалить</button>
+                            <button class="btn-del" data-product="${item.product_id}">Удалить</button>
                             <!--<div class="catalog-link">
                                 <a href="catalog/product1.html">Бумага</a>
                             </div>-->
                         </div>
                     `
                 })
+                str += `
+                    <div class="total-price">
+                        <span>Итоговая сумма</span>
+                        <span class="price">${this.totalPrice()}</span>
+                    </div>
+                `
                 //document.querySelector(this.container).innerHTML = str
                 document.querySelector(this.container_fly).innerHTML = str
             }
@@ -125,12 +138,16 @@
         window.onload = function() {
             catalog.construct()
 
-            cart.add(0)
-            cart.add(2)
-            cart.add(2)
-            console.log(cart)
-            console.log(cart.total())
+            this.document.getElementById("catalog").addEventListener("click", CalatogClick)
 
-            cart.render()
+            //cart.render()
         }
         ////
+        function CalatogClick(event){
+            if(event.target.tagName === "BUTTON"){
+                cart.add(Number(event.target.dataset.product))
+                console.log(cart)
+                console.log(cart.total())
+                cart.render()
+            }
+        }
