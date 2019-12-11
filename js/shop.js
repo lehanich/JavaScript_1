@@ -183,14 +183,16 @@
         }
         function showFlyCartClick(event){
             if(event.target.tagName === "INPUT" && event.target.className === "cart-button"){
-                let classArray = [...document.querySelector(cart.container_fly).classList]
+                //let classArray = [...document.querySelector(cart.container_fly).classList]
                 //console.dir(document.querySelector(cart.container_fly).classList);
-                classArray.indexOf("show") >=0 ?
+                //classArray.indexOf("show") >=0 ?
+                document.querySelector(cart.container_fly).classList.contains("show")?
                   document.querySelector(cart.container_fly).classList.remove("show") :
                     document.querySelector(cart.container_fly).classList.add("show")
 
-                classArray = [...document.querySelector(".cart-form .total-price").classList]
-                classArray.indexOf("hide") >=0 ?
+                //classArray = [...document.querySelector(".cart-form .total-price").classList]
+                //classArray.indexOf("hide") >=0 ?
+                document.querySelector(".cart-form .total-price").classList.contains("hide")?
                   document.querySelector(".cart-form .total-price").classList.remove("hide") :
                     document.querySelector(".cart-form .total-price").classList.add("hide")
             }
