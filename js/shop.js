@@ -9,12 +9,29 @@
         let catalog = {
             items: [],
             container: '.products',
-            construct () {
+            containerItem: '#dialog',
+            cart: null,
+            construct (cart) {
                 this._init () //_ - это обозначение инкапсулированного метода
+                this.cart = cart
             },
             _init () {
                 this._handleData ()
                 this.render ()
+                this._handleEvents()
+            },
+            _handleEvents(){
+                document.querySelector(this.container).addEventListener("click", (event) => {
+                    if(event.target.name === "btn-buy"){
+                        this.cart.add(Number(event.target.dataset.product))
+                        console.log(this.cart)
+                        console.log(this.cart.total())
+                        this.cart.render()
+                    }else if(event.target.classList.contains("product_item_link")){
+                        this.renderItem(event.target.dataset.item)
+                    }
+                    //document.querySelector(cart.container_fly).classList.contains("product_item_link")
+                })
             },
             _handleData () {
                 for (let i = 0; i < IDS.length; i++) {
@@ -36,9 +53,9 @@
                             <div class="pImage">
                                 <img  src="https://placehold.it/200x200" alt="${item.product_name}">
                             </div>
-                            <h5>${item.product_name}</h5>
+                            <a class="product_item_link" href="#"  ><h5 class="product_item_link" data-item="${item.product_id}">${item.product_name}</h5></a>
                             <span class="price">${item.price}</span>
-                            <div class="button-block"><button class="btn-buy" data-product="${item.product_id}">Купить</button></div>
+                            <div class="button-block"><button class="btn-buy" name="btn-buy" data-product="${item.product_id}">Купить</button></div>
                             <!--<div class="catalog-link">
                                 <a href="catalog/product1.html">Бумага</a>
                             </div>-->
@@ -49,6 +66,44 @@
                 console.log(document)
                 //document.querySelector(this.container).innerHTML = str
                 document.querySelector(this.container).innerHTML = str
+            },
+            renderItem(productId){
+                let str = ""
+                str = `
+                    <div class="product clearfix">
+                        <div class="product-img">
+                            <div class="img"><img src="https://placehold.it/370x370" alt="img"/></div>
+                            <div class="product-slider clearfix">
+                                <a href="#"><img src="https://placehold.it/70x70" alt="img"/></a>
+                                <a href="#"><img src="https://placehold.it/70x70" alt="img"/></a>
+                                <a href="#"><img src="https://placehold.it/70x70" alt="img"/></a>
+                            </div>
+                        </div>
+                        <div class="product-description">
+                            <h1>${this.items[productId].product_name}</h1>
+                            <div class="marketing">Hot deal</div>
+                            <form class="order">
+                                <p class="price"><span class="currency">Р</span>${this.items[productId].price}<span class="unit"></span></p>
+                                <input name="buyFromItem" data-item="${productId}" type="submit" class="buy" value="Купить" />
+                            </form>
+                            <div class="description"><p>The majesty of Mountains - Ugmonk style.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p> </div>
+                
+                        </div>
+                        <div><button name="closeItem">Закрыть</button></div>
+                    </div>
+                `
+                document.querySelector(this.containerItem).innerHTML = str
+                document.querySelector(this.containerItem).classList.add("show")
+                document.querySelector(this.containerItem).addEventListener("click", (event) => {
+                    if(event.target.name === "closeItem"){
+                        document.querySelector(this.containerItem).classList.remove("show")
+                    }else if(event.target.name === "buyFromItem"){
+                        this.cart.add(Number(event.target.dataset.item))
+                        //console.log(this.cart)
+                        //console.log(this.cart.total())
+                        this.cart.render()
+                    }
+                })
             }
         }
         
@@ -99,7 +154,7 @@
                                 <i>${item.price}</i> x 
                                 <i>${item.quantity}</i>шт
                             </div>
-                            <input type="button" class="btn-del" data-product="${item.product_id}" value="Удалить">
+                            <input type="button" class="btn-del" name="btn-del" data-product="${item.product_id}" value="Удалить">
                             <!--<div class="catalog-link">
                                 <a href="catalog/product1.html">Бумага</a>
                             </div>-->
@@ -150,14 +205,10 @@
 
 
         window.onload = function() {
-            catalog.construct()
+            catalog.construct(cart)
 
-            this.document.getElementById("catalog").addEventListener("click", CalatogClick)
-            //this.document.getElementById("cart-form").addEventListener("mouseenter", showFlyCart) 
-            //this.document.getElementById("cart-form").addEventListener("mouseover", hideFlyCart)   
+            //this.document.getElementById("catalog").addEventListener("click", CalatogClick) 
             this.document.getElementById("cart-form").addEventListener("click", showFlyCartClick) 
-            //this.document.querySelector(".cart-form .btn-del").addEventListener("click", deleteFromCart)
-            //cart.render()
             document.querySelector(".cart-block").addEventListener("click", deleteFromCart)
         }
         ////
