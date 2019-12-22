@@ -355,7 +355,7 @@ h3{
 .cart-block{
     display: none;
     position: absolute;
-    width: 200px;
+    width: 220px;
     height:auto;
     background-color: #dddcdc;
     right: -62px;
@@ -471,7 +471,7 @@ h3{
     font-size: 36px;
     margin-left: 2px;
 }
-#dialog .order input[type=submit] {
+#dialog .order input[name=buyFromItem] {
     width: 510px;
     height: 71px;
     box-shadow: 0 2px 5px 1px rgba(33,33,33,.35);
@@ -487,6 +487,7 @@ h3{
     display: block;
     cursor: pointer;
     border: none;
+    outline: none;
 }
 #dialog .product .description {
     color: #212121;

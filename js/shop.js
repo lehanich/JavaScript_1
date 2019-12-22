@@ -19,6 +19,7 @@
                 this._handleData ()
                 this.render ()
                 this._handleEvents()
+                //this._handleEventsItem()
             },
             _handleEvents(){
                 document.querySelector(this.container).addEventListener("click", (event) => {
@@ -32,7 +33,22 @@
                     }
                     //document.querySelector(cart.container_fly).classList.contains("product_item_link")
                 })
+                document.querySelector(this.containerItem ).addEventListener("click", (event) => {
+                    if(event.target.name === "closeItem"){
+                        document.querySelector(this.containerItem).classList.remove("show")
+                        //document.querySelector(this.containerItem).removeEventListener()
+                    }else if(event.target.name === "buyFromItem"){
+                        console.dir(event.target)
+                        this.cart.add(Number(event.target.dataset.item))
+                        console.log(this.cart)
+                        console.log(this.cart.total())
+                        this.cart.render()
+                    }
+                })
             },
+            // _handleEventsItem(){
+                
+            // },
             _handleData () {
                 for (let i = 0; i < IDS.length; i++) {
                     this.items.push (this._createNewProduct (i))
@@ -84,7 +100,7 @@
                             <div class="marketing">Hot deal</div>
                             <form class="order">
                                 <p class="price"><span class="currency">Р</span>${this.items[productId].price}<span class="unit"></span></p>
-                                <input name="buyFromItem" data-item="${productId}" type="submit" class="buy" value="Купить" />
+                                <input name="buyFromItem" data-item="${productId}" type="button" class="buy" value="Купить" />
                             </form>
                             <div class="description"><p>The majesty of Mountains - Ugmonk style.</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p> </div>
                 
@@ -94,16 +110,7 @@
                 `
                 document.querySelector(this.containerItem).innerHTML = str
                 document.querySelector(this.containerItem).classList.add("show")
-                document.querySelector(this.containerItem).addEventListener("click", (event) => {
-                    if(event.target.name === "closeItem"){
-                        document.querySelector(this.containerItem).classList.remove("show")
-                    }else if(event.target.name === "buyFromItem"){
-                        this.cart.add(Number(event.target.dataset.item))
-                        //console.log(this.cart)
-                        //console.log(this.cart.total())
-                        this.cart.render()
-                    }
-                })
+                //this._handleEventsItem()
             }
         }
         
@@ -111,6 +118,33 @@
         let cart = {
             items: [],
             container_fly: ".cart-block",
+            cart_form: "#cart-form",
+            construct(){
+                this._init()
+            },
+            _init(){
+                this._handleEvents()
+            },
+            _handleEvents(){
+                document.querySelector(this.cart_form).addEventListener("click", (event)=>{
+                    //if(event.target.tagName === "INPUT" && event.target.className === "cart-button"){
+                    if(event.target.name === "cart-button"){
+                        document.querySelector(this.container_fly).classList.contains("show")?
+                          document.querySelector(this.container_fly).classList.remove("show") :
+                            document.querySelector(this.container_fly).classList.add("show")
+        
+                        document.querySelector(this.cart_form + " .total-price").classList.contains("hide")?
+                          document.querySelector(this.cart_form + " .total-price").classList.remove("hide") :
+                            document.querySelector(this.cart_form + " .total-price").classList.add("hide")
+                    }
+                })
+                document.querySelector(this.container_fly).addEventListener("click", (event)=>{
+                    if(event.target.name === "btn-del"){
+                        console.log(event.target.dataset.product)
+                        this.deleteProduct(event.target.dataset.product)
+                    }
+                })
+            },
             add(pID) {
                 //Если товар есть в корзине, увеличиваем quantity
                 let addedToCart = false
@@ -154,7 +188,7 @@
                                 <i>${item.price}</i> x 
                                 <i>${item.quantity}</i>шт
                             </div>
-                            <input type="button" class="btn-del" name="btn-del" data-product="${item.product_id}" value="Удалить">
+                            <input type="button" class="btn-del" name="btn-del" data-product="${item.product_id}" value="Del">
                             <!--<div class="catalog-link">
                                 <a href="catalog/product1.html">Бумага</a>
                             </div>-->
@@ -169,7 +203,7 @@
                 `
                 //document.querySelector(this.container).innerHTML = str
                 document.querySelector(this.container_fly).innerHTML = str
-                document.querySelector(".cart-form .total-price").innerHTML = this.totalPrice()
+                document.querySelector(this.cart_form + " .total-price").innerHTML = this.totalPrice()
                 
             },
             deleteProduct(id){
@@ -205,52 +239,53 @@
 
 
         window.onload = function() {
+            cart.construct()
             catalog.construct(cart)
 
             //this.document.getElementById("catalog").addEventListener("click", CalatogClick) 
-            this.document.getElementById("cart-form").addEventListener("click", showFlyCartClick) 
-            document.querySelector(".cart-block").addEventListener("click", deleteFromCart)
+            //this.document.getElementById("cart-form").addEventListener("click", showFlyCartClick) 
+            // document.querySelector(".cart-block").addEventListener("click", deleteFromCart)
         }
         ////
-        function CalatogClick(event){
-            if(event.target.tagName === "BUTTON"){
-                cart.add(Number(event.target.dataset.product))
-                console.log(cart)
-                console.log(cart.total())
-                cart.render()
+        // function CalatogClick(event){
+        //     if(event.target.tagName === "BUTTON"){
+        //         cart.add(Number(event.target.dataset.product))
+        //         console.log(cart)
+        //         console.log(cart.total())
+        //         cart.render()
                 
-            }
-        }
-        function showFlyCart(event){
-            console.dir(event.target);
-            if(event.target.tagName === "FORM" && event.target.className === "cart-form"){
-                document.querySelector(cart.container_fly).classList.add("show")
-            }
-        }
-        function hideFlyCart(event){
-            if(event.target.tagName === "FORM" && event.target.className === "cart-form"){
-                document.querySelector(cart.container_fly).classList.remove("show")
-            }
-        }
-        function showFlyCartClick(event){
-            if(event.target.tagName === "INPUT" && event.target.className === "cart-button"){
-                //let classArray = [...document.querySelector(cart.container_fly).classList]
-                //console.dir(document.querySelector(cart.container_fly).classList);
-                //classArray.indexOf("show") >=0 ?
-                document.querySelector(cart.container_fly).classList.contains("show")?
-                  document.querySelector(cart.container_fly).classList.remove("show") :
-                    document.querySelector(cart.container_fly).classList.add("show")
+        //     }
+        // }
+        // function showFlyCart(event){
+        //     console.dir(event.target);
+        //     if(event.target.tagName === "FORM" && event.target.className === "cart-form"){
+        //         document.querySelector(cart.container_fly).classList.add("show")
+        //     }
+        // }
+        // function hideFlyCart(event){
+        //     if(event.target.tagName === "FORM" && event.target.className === "cart-form"){
+        //         document.querySelector(cart.container_fly).classList.remove("show")
+        //     }
+        // }
+        // function showFlyCartClick(event){
+        //     if(event.target.tagName === "INPUT" && event.target.className === "cart-button"){
+        //         //let classArray = [...document.querySelector(cart.container_fly).classList]
+        //         //console.dir(document.querySelector(cart.container_fly).classList);
+        //         //classArray.indexOf("show") >=0 ?
+        //         document.querySelector(cart.container_fly).classList.contains("show")?
+        //           document.querySelector(cart.container_fly).classList.remove("show") :
+        //             document.querySelector(cart.container_fly).classList.add("show")
 
-                //classArray = [...document.querySelector(".cart-form .total-price").classList]
-                //classArray.indexOf("hide") >=0 ?
-                document.querySelector(".cart-form .total-price").classList.contains("hide")?
-                  document.querySelector(".cart-form .total-price").classList.remove("hide") :
-                    document.querySelector(".cart-form .total-price").classList.add("hide")
-            }
-        }
-        function deleteFromCart(event){
-            if(event.target.tagName === "INPUT" && event.target.className === "btn-del"){
-                console.log(event.target.dataset.product)
-                cart.deleteProduct(event.target.dataset.product)
-            }
-        }
+        //         //classArray = [...document.querySelector(".cart-form .total-price").classList]
+        //         //classArray.indexOf("hide") >=0 ?
+        //         document.querySelector(".cart-form .total-price").classList.contains("hide")?
+        //           document.querySelector(".cart-form .total-price").classList.remove("hide") :
+        //             document.querySelector(".cart-form .total-price").classList.add("hide")
+        //     }
+        // }
+        // function deleteFromCart(event){
+        //     if(event.target.tagName === "INPUT" && event.target.className === "btn-del"){
+        //         console.log(event.target.dataset.product)
+        //         cart.deleteProduct(event.target.dataset.product)
+        //     }
+        // }
