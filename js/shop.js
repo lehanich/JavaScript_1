@@ -3,7 +3,13 @@
         let PRODUCTS_NAMES = ['Бумага', 'Скрепки', 'Краски', 'Ручка', 'Ластик']
         let PRICES = [100, 30, 550, 55, 44]
         let IDS = [0, 1, 2, 3, 4]
-
+        let IMGS = [
+            'https://cs8.pikabu.ru/post_img/big/2017/12/25/5/1514188160141511997.jpg', 
+            'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/HMUB2?wid=1144&hei=1144&fmt=jpeg&qlt=80&op_usm=0.5,0.5&.v=1563827752399',
+            'https://zeon18.ru/files/item/Xiaomi-Mi-Notebook-Air-4G-Officially-Announced-Weboo-co-2%20(1)_1.jpg',
+            'https://files.sandberg.it/products/images/lg/640-05_lg.jpg',
+            'https://images-na.ssl-images-amazon.com/images/I/81PLqxtrJ3L._SX466_.jpg'
+            ]
         let products = []
         
         let catalog = {
@@ -11,6 +17,9 @@
             container: '.products',
             containerItem: '#dialog',
             cart: null,
+            MAIN_PIC: "",
+            ROUL: "",
+            CONTR: "",
             construct (cart) {
                 this._init () //_ - это обозначение инкапсулированного метода
                 this.cart = cart
@@ -43,6 +52,16 @@
                         console.log(this.cart)
                         console.log(this.cart.total())
                         this.cart.render()
+                    }else if(event.target.tagName === 'IMG'){
+                        this.MAIN_PIC.src = event.target.src
+                    }else if(event.target.name === "control"){
+                        let step = +event.target.dataset.step
+                        let actual = IMGS.indexOf (this.MAIN_PIC.src)
+        
+                        if ((actual === IMGS.length - 1) && (step === 1)) actual = -1 
+                        if ((actual === 0) && (step === -1)) actual = IMGS.length 
+        
+                        this.MAIN_PIC.src = IMGS [actual + step]
                     }
                 })
             },
@@ -87,12 +106,32 @@
                 let str = ""
                 str = `
                     <div class="product clearfix">
+                    <!--
                         <div class="product-img">
-                            <div class="img"><img src="https://placehold.it/370x370" alt="img"/></div>
-                            <div class="product-slider clearfix">
+                            <div class="img"><img id="MAIN-PIC" src="https://placehold.it/370x370" alt="img"/></div>
+                            <div id="roulette" class="product-slider clearfix">
                                 <a href="#"><img src="https://placehold.it/70x70" alt="img"/></a>
                                 <a href="#"><img src="https://placehold.it/70x70" alt="img"/></a>
                                 <a href="#"><img src="https://placehold.it/70x70" alt="img"/></a>
+                            </div>
+                            <div id="control">
+                                <button name="control" data-step="-1"><<<</button>
+                                <button name="control" data-step="1">>>></button>
+                            </div>
+                        </div>
+                        -->
+                        <div class="product-img">
+                            <div class="img"><img id="MAIN-PIC" src="${IMGS[0]}" width="370" height="370" alt="img"/></div>
+                            <div id="roulette" class="product-slider clearfix">
+                                <a href="#"><img src="${IMGS[0]}" width="70" height="70" alt="img"/></a>
+                                <a href="#"><img src="${IMGS[1]}" width="70" height="70" alt="img"/></a>
+                                <a href="#"><img src="${IMGS[2]}" width="70" height="70" alt="img"/></a>
+                                <a href="#"><img src="${IMGS[3]}" width="70" height="70" alt="img"/></a>
+                                <a href="#"><img src="${IMGS[4]}" width="70" height="70" alt="img"/></a>
+                            </div>
+                            <div id="control">
+                                <button name="control" data-step="-1"><<<</button>
+                                <button name="control" data-step="1">>>></button>
                             </div>
                         </div>
                         <div class="product-description">
@@ -109,6 +148,9 @@
                     </div>
                 `
                 document.querySelector(this.containerItem).innerHTML = str
+                this.MAIN_PIC = document.getElementById ('MAIN-PIC')
+                this.ROUL = document.getElementById ('roulette')
+                this.CONTR = document.getElementById ('control')
                 document.querySelector(this.containerItem).classList.add("show")
                 //this._handleEventsItem()
             }
