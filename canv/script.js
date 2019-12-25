@@ -19,6 +19,7 @@ let editor = {
     currentTool: null,
     currentColor: '#000',
     brushSize: 5,
+    eraser_size: 1,
     x: 0,
     y: 0,
 
@@ -37,6 +38,9 @@ let editor = {
         if (id === 'select-color' || id === 'select-size') {
             id === 'select-color' ? editor.currentColor = val : editor.brushSize = val
             if (id === 'select-color') ctx.fillStyle = editor.currentColor
+        }else if(id ==='eraser-size'){
+            console.log(val)
+            editor.eraser_size = val;
         }
     },
     clickHandler (evt) {
@@ -54,7 +58,11 @@ let editor = {
         yBlock.innerText = editor.y
     },
     startDraw (evt) {
-        if (editor.currentTool === 'brush') editor._drawBrush (evt)
+        if (editor.currentTool === 'brush') {
+            editor._drawBrush (evt)
+        }else if(editor.currentTool === 'eraser'){
+            editor._erase (evt)
+        }
     },
     endDraw () {
         canvas.onmousemove = null
@@ -62,6 +70,16 @@ let editor = {
     _drawBrush () {
         canvas.onmousemove = () => {
             ctx.fillRect (editor.x, editor.y, editor.brushSize, editor.brushSize)
+        }
+    },
+    _erase () {
+        canvas.onmousemove = () => {
+            ctx.globalCompositeOperation = 'destination-out'; 
+            ctx.beginPath(); 
+            ctx.arc(editor.x, editor.y,  editor.eraser_size, 0, Math.PI*2, false)
+            ctx.closePath(); 
+            ctx.fill(); 
+            ctx.globalCompositeOperation = "source-over";
         }
     }
 }
